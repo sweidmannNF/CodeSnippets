@@ -31,3 +31,26 @@ const schema = {
 pm.test("Validate schema", () => {
     pm.response.to.have.jsonSchema(schema);
 });
+
+
+---------------------------
+---------------------------
+
+matches to this: 
+
+{
+    "resultList": [
+        {
+            "mdmCode": "HIERISTEINSTRING",
+            "beschreibung": "HIERISTEINSTRING"",
+            "kapitaleinsatzSpalte": "HIERISTEINSTRING",
+            "gebuehrenSpalte": "HIERISTEINSTRING",
+            "steuerSpalte": "HIERISTEINSTRING",
+            "zinsenSpalte": "HIERISTEINSTRING",
+            "steuerSpalteNegiert": true,
+            "zinsenSpalteNegiert": true,
+            "ausschuettungSpalteNegiert": true
+        },
+		...
+	]
+}
