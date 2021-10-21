@@ -885,79 +885,6 @@
           "name": "NfFondsbankNew",
           "item": [
             {
-              "name": "DeleteActiveBeratungen (Cleanup)",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "id": "ec245a4d-dfcf-40e4-ad68-3f7a5ceaf2b4"
-                  }
-                },
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
-                      "});\r",
-                      "\r",
-                      "const resultList = pm.response.json().resultList;\r",
-                      "\r",
-                      "function deleteBeratung(beratungId) {\r",
-                      "    pm.sendRequest({\r",
-                      "        method: 'DELETE',\r",
-                      "        url: `${pm.environment.get('host')}services/beratung/api/v1/beratung/${beratungId}`\r",
-                      "    });\r",
-                      "};\r",
-                      "\r",
-                      "for (let i = 0; i < resultList.length; i += 1) {\r",
-                      "    if (resultList[i].vermittler !== undefined && resultList[i].vermittler.vnr === pm.collectionVariables.get('NfVnr')) {\r",
-                      "       deleteBeratung(resultList[i].beratungId);\r",
-                      "    }\r",
-                      "}"
-                    ],
-                    "type": "text/javascript",
-                    "id": "d4fbfa8c-b026-4402-8473-05e18e9d2a52"
-                  }
-                }
-              ],
-              "id": "01fcf916-1b20-4672-a1f8-da099f5c4538",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{host}}services/beratung/api/v1/beratung?status=AKTIV&calculateTotalCount=false",
-                  "host": [
-                    "{{host}}services"
-                  ],
-                  "path": [
-                    "beratung",
-                    "api",
-                    "v1",
-                    "beratung"
-                  ],
-                  "query": [
-                    {
-                      "key": "status",
-                      "value": "AKTIV"
-                    },
-                    {
-                      "key": "calculateTotalCount",
-                      "value": "false"
-                    }
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "CreateBeratung",
               "event": [
                 {
@@ -1923,47 +1850,47 @@
   ],
   "variable": [
     {
-      "id": "7cd154e3-bfbd-46f9-8c8b-8317244c4762",
+      "id": "d2cc67ee-e0ea-4764-b061-5d8ad7c62bc2",
       "key": "NfVnr",
       "value": "99967"
     },
     {
-      "id": "22eac5b9-a4bb-46e0-98e2-8b50b88bee06",
+      "id": "95b2c9fc-6c8c-49a9-9714-cfcf9bb7e97b",
       "key": "NfKundeId",
       "value": "10000073498"
     },
     {
-      "id": "fcaed829-ecd6-43ed-b358-95e954784814",
+      "id": "7b05af53-6bfe-4c9d-b235-82e0297a0e17",
       "key": "NfsVnr",
       "value": "80489"
     },
     {
-      "id": "a0aae90e-8d9f-4449-8716-b51da8002e85",
+      "id": "a4e4534e-683e-49cb-86f4-f5c795537226",
       "key": "NfsKundeId",
       "value": "10000072936"
     },
     {
-      "id": "3b133148-c811-44e3-94c4-17b32d3ddb8a",
+      "id": "585ce355-aca7-4be9-95d8-6eaba35ce263",
       "key": "fondsbankId",
       "value": "101"
     },
     {
-      "id": "ec893786-b439-4be1-8c39-04a84d203e24",
+      "id": "c159003d-3b35-4690-af88-a342e55d5fc5",
       "key": "vollbankId",
       "value": "100"
     },
     {
-      "id": "988d9d2c-96c4-4934-a90a-ffb7562f349f",
+      "id": "9c164dc3-4517-4aea-9fc5-50196fb219d6",
       "key": "beratungId",
       "value": ""
     },
     {
-      "id": "8b9e5e90-1c3f-43e1-adf4-e9bccb1bad1a",
+      "id": "b2e00e2b-a676-47b3-bf98-90b34bd55a43",
       "key": "VbKonditionsmodellId",
       "value": ""
     },
     {
-      "id": "27643676-0223-4026-86c2-74c679df7a86",
+      "id": "46390d53-0d3e-4773-8499-766ee676581b",
       "key": "FbKonditionsmodellId",
       "value": ""
     }
