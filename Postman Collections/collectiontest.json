@@ -897,7 +897,7 @@
                       "});\r",
                       "\r",
                       "let beratungId = pm.response.json().data.id;\r",
-                      "pm.collectionVariables.set(\"beratungId\", beratungId);"
+                      "pm.collectionVariables.set(\"beratungIdBlabla\", beratungId);"
                     ],
                     "type": "text/javascript"
                   }
@@ -1850,47 +1850,47 @@
   ],
   "variable": [
     {
-      "id": "f307fd05-42fc-4834-aca9-8812d7b6bcd9",
+      "id": "25164e13-b8ab-4132-a8b8-1a8b5304c8c3",
       "key": "NfVnr",
       "value": "99967"
     },
     {
-      "id": "51ee5beb-633b-4861-91a4-2aa5387f7016",
+      "id": "ae589a2b-f76f-4ccb-8431-8b62a25b01e3",
       "key": "NfKundeId",
       "value": "10000073498"
     },
     {
-      "id": "8f69530c-4d9f-4830-96aa-245198177943",
+      "id": "00eaef85-7471-40b4-a32d-25b62c169f33",
       "key": "NfsVnr",
       "value": "80489"
     },
     {
-      "id": "9fd89513-dc4e-4ace-8169-bcaaad88afd2",
+      "id": "d10fcb35-183c-4c76-922e-d5cbbd645124",
       "key": "NfsKundeId",
       "value": "10000072936"
     },
     {
-      "id": "fef4665e-2bf4-4d95-96cd-63292ed8c4f3",
+      "id": "7bb01c0d-06b8-4781-b4a5-7a3b4552fa95",
       "key": "fondsbankId",
       "value": "101"
     },
     {
-      "id": "5972f23f-ed1a-4c0b-93ea-290a041e8ef6",
+      "id": "e1fd84a3-25d6-447d-b7ba-6a5768cc8b87",
       "key": "vollbankId",
       "value": "100"
     },
     {
-      "id": "96ce5bce-0e68-41a2-b774-43f6098aa339",
+      "id": "c8a19eae-e496-43bf-aba8-09194163fe87",
       "key": "beratungId",
       "value": ""
     },
     {
-      "id": "16248447-c0ae-4fa8-970d-fa648fa5be27",
+      "id": "798b137b-8fdd-4b73-89f1-848ddd9edd14",
       "key": "VbKonditionsmodellId",
       "value": ""
     },
     {
-      "id": "a1b52f67-9ad8-439e-ba09-5b0d4a21a7a0",
+      "id": "4691d55f-c4a4-4e35-8093-d5f6e7920817",
       "key": "FbKonditionsmodellId",
       "value": ""
     }
