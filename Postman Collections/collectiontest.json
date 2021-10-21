@@ -1,0 +1,1983 @@
+{
+  "info": {
+    "_postman_id": "03738c0e-3862-44cd-9c68-41652bcb4447",
+    "name": "[ready] [Silizium] WertpapierorderZugelasseneGattungsarten [DEV-17380]",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "NfVermittlerTests",
+      "item": [
+        {
+          "name": "NfVollbank",
+          "item": [
+            {
+              "name": "DeleteActiveBeratungen (Cleanup)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "5c85a553-53b4-4cc4-ade9-3eb9a4968458",
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "99a0c24c-e587-4f2c-9dcf-29fb51123c8f",
+                    "exec": [
+                      "pm.test(\"Status code is 200, thats really fine 4 me 2\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "// hahaha\r",
+                      "const resultList = pm.response.json().resultList;\r",
+                      "\r",
+                      "function deleteBeratung(beratungId) {\r",
+                      "    pm.sendRequest({\r",
+                      "        method: 'DELETE',\r",
+                      "        url: `${pm.environment.get('host')}services/beratung/api/v1/beratung/${beratungId}`\r",
+                      "    });\r",
+                      "};\r",
+                      "\r",
+                      "for (let i = 0; i < resultList.length; i += 1) {\r",
+                      "    if (resultList[i].vermittler !== undefined && resultList[i].vermittler.vnr === pm.collectionVariables.get('NfVnr')) {\r",
+                      "       deleteBeratung(resultList[i].beratungId);\r",
+                      "    }\r",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "c5d87fa1-ef28-449d-b662-5b2c96edbadf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung?status=INAKTIV&calculateTotalCount=false",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "INAKTIV"
+                    },
+                    {
+                      "key": "calculateTotalCount",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateBeratung",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "52fb1f5d-953a-4fd2-bf3d-8c5399aca29e",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"beratungId\", beratungId);\r",
+                      "pm.collectionVariables.set(\"beratungId\", beratungId);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "c61942da-5e66-4a14-94bc-b7a6c9b85295",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung"
+              },
+              "response": []
+            },
+            {
+              "name": "Gespraechsangaben",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "c0dbeeff-2f53-4f45-9e3e-19ef6c8d5f58"
+                  }
+                }
+              ],
+              "_postman_id": "e9a273ed-6369-4fab-a475-39cf58659dad",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"form\": \"PERSOENLICH\",\r\n    \"kundeId\": {{NfKundeId}},\r\n    \"initiatorId\": \"{{NfKundeId}}\",\r\n\t\"initiatorTyp\": \"KUNDE\",\r\n    \"schritt\": \"SELBSTAUSKUNFT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Selbstauskunft",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "7899cc90-bd2b-437d-92b3-8f7a8be9118d"
+                  }
+                }
+              ],
+              "_postman_id": "f7c89c01-beb5-4773-a1c0-7b1f794d1090",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"selbstauskunftTrigger\": [\r\n        \"{{NfKundeId}}\"\r\n    ],\r\n    \"schritt\": \"DEPOTAUSWAHL\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckIfVollbank",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Depotbank is a Vollbank\", function () {\r",
+                      "    pm.expect(pm.response.json().typ).to.eql('Vollbank');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "b22e1e89-f0be-4844-92ab-746b4ab8be0e"
+                  }
+                }
+              ],
+              "_postman_id": "1084d895-17fa-488b-9b0d-b33210d6bd96",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{host}}services/depotbank/api/legacy/depotbank/{{vollbankId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "GetKonditionsmodellId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.collectionVariables.set('VbKonditionsmodellId', pm.response.json().resultList[0].id);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "81ed214e-685c-427a-8b30-f7ad4b5d5d6d"
+                  }
+                }
+              ],
+              "_postman_id": "f0ec952b-905b-4d0c-92f4-4d40753bda73",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/depotbank/api/v1/konditionsmodell?depotbankIds={{vollbankId}}",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "depotbank",
+                    "api",
+                    "v1",
+                    "konditionsmodell"
+                  ],
+                  "query": [
+                    {
+                      "key": "depotbankIds",
+                      "value": "{{vollbankId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Depotauswahl",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "1a301d54-383b-4720-b5de-4bdbe84943aa"
+                  }
+                }
+              ],
+              "_postman_id": "436ce7a3-638e-446f-9d73-8dc3273f75b6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"neudepotInput\": {\r\n        \"depotbankId\": {{vollbankId}},\r\n        \"bestandEur\": 0,\r\n        \"konditionsmodellId\": {{VbKonditionsmodellId}}\r\n    },\r\n    \"depotInput\": {\r\n        \"depotTyp\": \"NEU\"\r\n    },\r\n    \"schritt\": \"ANLAGEPLAN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Anlageplan",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "7009f24d-7dd9-42d6-9f58-591b6c0e8c20"
+                  }
+                }
+              ],
+              "_postman_id": "1ead7dfb-5c20-465c-879a-661b0fe8f61c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"anlageplanInput\": {\r\n        \"horizont\": 10,\r\n        \"anlageziel\": \"ALTERSVORSORGE\",\r\n        \"nachhaltigkeit\": \"NICHTRELEVANT\"\r\n    },\r\n    \"allokationId\": 6,\r\n    \"schritt\": \"PORTFOLIOMANAGER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckVermittlerTyp",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Vermittler is of Type 34f\", function () {\r",
+                      "    pm.expect(pm.response.json().data.attributes.vermittler.vermittlerTyp).to.eql('STANDARD');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "0a7fea67-8390-43f9-bbab-65f361de2544"
+                  }
+                }
+              ],
+              "_postman_id": "9d2534ca-0bb8-4a3a-a101-cf4877172ada",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?full=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "full",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CheckOrderInformationen",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let orderInformationen = pm.response.json().data.attributes.portfolio.orderInformationen;\r",
+                      "let erlaubteTransaktionen = orderInformationen.erlaubteTransaktionen;\r",
+                      "\r",
+                      "let erwarteteGattungsgruppen = ['FONDS'];\r",
+                      "let gefundeneGattungsgruppen = [];\r",
+                      "\r",
+                      "for (i = 0; i < erlaubteTransaktionen.length; i++) {\r",
+                      "    gefundeneGattungsgruppen.push(erlaubteTransaktionen[i].gattungsGruppe);\r",
+                      "}\r",
+                      "\r",
+                      "pm.test(\"OrderForm Type is BS\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFOrderForm).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Sparplan OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFSparplanOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Allowed Gattungsarten are as expected\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen.sort()).to.eql(erwarteteGattungsgruppen.sort());\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart FONDS is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('FONDS');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart AKTIEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('AKTIEN');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ZERTIFIKATE is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ZERTIFIKATE');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ANLEIHEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ANLEIHEN');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "583aaaed-2bf5-4390-9b27-08ab7b1075be"
+                  }
+                }
+              ],
+              "_postman_id": "4af20147-ab72-4455-90e1-888a92270c15",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?portfolio=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portfolio",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4d26beb3-cd07-47a5-ae70-db57e3ce4ea6",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "NfFondsbank",
+          "item": [
+            {
+              "name": "DeleteActiveBeratungen (Cleanup)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "id": "ec245a4d-dfcf-40e4-ad68-3f7a5ceaf2b4"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "const resultList = pm.response.json().resultList;\r",
+                      "\r",
+                      "function deleteBeratung(beratungId) {\r",
+                      "    pm.sendRequest({\r",
+                      "        method: 'DELETE',\r",
+                      "        url: `${pm.environment.get('host')}services/beratung/api/v1/beratung/${beratungId}`\r",
+                      "    });\r",
+                      "};\r",
+                      "\r",
+                      "for (let i = 0; i < resultList.length; i += 1) {\r",
+                      "    if (resultList[i].vermittler !== undefined && resultList[i].vermittler.vnr === pm.collectionVariables.get('NfVnr')) {\r",
+                      "       deleteBeratung(resultList[i].beratungId);\r",
+                      "    }\r",
+                      "}"
+                    ],
+                    "type": "text/javascript",
+                    "id": "d4fbfa8c-b026-4402-8473-05e18e9d2a52"
+                  }
+                }
+              ],
+              "_postman_id": "01fcf916-1b20-4672-a1f8-da099f5c4538",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung?status=AKTIV&calculateTotalCount=false",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "AKTIV"
+                    },
+                    {
+                      "key": "calculateTotalCount",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateBeratung",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let beratungId = pm.response.json().data.id;\r",
+                      "pm.collectionVariables.set(\"beratungId\", beratungId);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "66832eb2-ac5b-4e08-8171-017a9a03612e"
+                  }
+                }
+              ],
+              "_postman_id": "981f1f32-6b3d-468b-92ba-e2886cb08753",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung"
+              },
+              "response": []
+            },
+            {
+              "name": "Gespraechsangaben",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "6a58bc72-0f50-4d8d-9811-504edde30768"
+                  }
+                }
+              ],
+              "_postman_id": "e2b456bb-95a7-47ce-97e8-88b408b06fc4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"form\": \"PERSOENLICH\",\r\n    \"kundeId\": {{NfKundeId}},\r\n    \"initiatorId\": \"{{NfKundeId}}\",\r\n\t\"initiatorTyp\": \"KUNDE\",\r\n    \"schritt\": \"SELBSTAUSKUNFT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Selbstauskunft",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "8708e571-f75a-4a2f-94d0-1acb0a0d578f"
+                  }
+                }
+              ],
+              "_postman_id": "3562c61b-5ff6-4987-8633-32794ec06330",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"selbstauskunftTrigger\": [\r\n        \"{{NfKundeId}}\"\r\n    ],\r\n    \"schritt\": \"DEPOTAUSWAHL\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckIfFondsbank",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Depotbank is a Fondsbank\", function () {\r",
+                      "    pm.expect(pm.response.json().typ).to.eql('Fondsbank');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "c28f9453-8c12-4c5f-b9b6-ca1fa3f9c34c"
+                  }
+                }
+              ],
+              "_postman_id": "67d63cd1-24e5-4c45-a56e-31000315cb51",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{host}}services/depotbank/api/legacy/depotbank/{{fondsbankId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "GetKonditionsmodellId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.collectionVariables.set('FbKonditionsmodellId', pm.response.json().resultList[0].id);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "498f71eb-1383-4bdf-ac63-52f92e204211"
+                  }
+                }
+              ],
+              "_postman_id": "76a5b615-5fd7-4f13-b3f3-91ae0949530d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/depotbank/api/v1/konditionsmodell?depotbankIds={{fondsbankId}}",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "depotbank",
+                    "api",
+                    "v1",
+                    "konditionsmodell"
+                  ],
+                  "query": [
+                    {
+                      "key": "depotbankIds",
+                      "value": "{{fondsbankId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Depotauswahl",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "5bd434ee-86cb-47b2-aa1f-70a3c9161417"
+                  }
+                }
+              ],
+              "_postman_id": "48cf281a-b27a-4fcc-99e0-27a6d067504b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"neudepotInput\": {\r\n        \"depotbankId\": {{fondsbankId}},\r\n        \"bestandEur\": 0,\r\n        \"konditionsmodellId\": {{FbKonditionsmodellId}}\r\n    },\r\n    \"depotInput\": {\r\n        \"depotTyp\": \"NEU\"\r\n    },\r\n    \"schritt\": \"ANLAGEPLAN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Anlageplan",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "f6d74108-3756-4b19-91fa-ed9805fba937"
+                  }
+                }
+              ],
+              "_postman_id": "e5c352f6-647b-419d-b075-dcf906ffa2c7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"anlageplanInput\": {\r\n        \"horizont\": 10,\r\n        \"anlageziel\": \"ALTERSVORSORGE\",\r\n        \"nachhaltigkeit\": \"NICHTRELEVANT\"\r\n    },\r\n    \"allokationId\": 6,\r\n    \"schritt\": \"PORTFOLIOMANAGER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckVermittlerTyp",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Vermittler is of Type 34f\", function () {\r",
+                      "    pm.expect(pm.response.json().data.attributes.vermittler.vermittlerTyp).to.eql('STANDARD');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "e153ee13-f9f5-4a21-a5bb-07a996d9d8a2"
+                  }
+                }
+              ],
+              "_postman_id": "bf2a7e07-645b-46c1-8683-800ac0d0efbc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?full=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "full",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CheckOrderInformationen",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let orderInformationen = pm.response.json().data.attributes.portfolio.orderInformationen;\r",
+                      "let erlaubteTransaktionen = orderInformationen.erlaubteTransaktionen;\r",
+                      "\r",
+                      "let erwarteteGattungsgruppen = ['FONDS'];\r",
+                      "let gefundeneGattungsgruppen = [];\r",
+                      "\r",
+                      "for (i = 0; i < erlaubteTransaktionen.length; i++) {\r",
+                      "    gefundeneGattungsgruppen.push(erlaubteTransaktionen[i].gattungsGruppe);\r",
+                      "}\r",
+                      "\r",
+                      "pm.test(\"OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Sparplan OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFSparplanOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Allowed Gattungsarten are as expected\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen.sort()).to.eql(erwarteteGattungsgruppen.sort());\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart FONDS is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('FONDS');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart AKTIEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('AKTIEN');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ZERTIFIKATE is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ZERTIFIKATE');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ANLEIHEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ANLEIHEN');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "baa39155-4a05-461a-9ef6-b6305972878c"
+                  }
+                }
+              ],
+              "_postman_id": "87ebe066-0768-4ea3-881a-12e582f6cd29",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?portfolio=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portfolio",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "a4411442-b836-41a4-bfb0-85c6891a1678",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "6edd79ba-9c3e-4fc8-a865-8b7504256c2f",
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "{{vermittlerToken}}"
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "//Test, ob Token gültig ist",
+              "pm.sendRequest({",
+              "    url: \"https://demo.finfire.de/services/login/api/v1?refresh=false&useDirectVnr=false\",",
+              "    method: \"GET\",",
+              "    header: {",
+              "        \"content-type\": \"application/json\",",
+              "        \"Authorization\": \"Bearer \" + pm.globals.get(\"vermittlerToken\")",
+              "    }",
+              "},",
+              "    function (err, res) {",
+              "        let authenticated = res.json().authenticated;",
+              "        console.log(res.json().token);",
+              "        console.log(\"authenticated:\" + authenticated);",
+              "",
+              "        // Erneutes Setzen des Tokens ",
+              "        pm.globals.set(\"vermittlerToken\", res.json().token);",
+              "",
+              "        if (authenticated === false) {",
+              "            //Anmeldung beim Login Service",
+              "            console.log(\"Hole neuen VermittlerToken vom LoginService\");",
+              "            pm.sendRequest(",
+              "                {",
+              "                    url: \"https://demo.fundsware.de/services/login/api/v1/doLogin\",",
+              "                    method: \"POST\",",
+              "                    header: {",
+              "                        \"content-type\": \"application/json\"",
+              "                    },",
+              "                    body: {",
+              "                        mode: \"raw\",",
+              "                        raw: JSON.stringify({",
+              "                            username: pm.globals.get(\"vermittlerUsername\"),",
+              "                            password: pm.globals.get(\"vermittlerPassword\")",
+              "                        })",
+              "                    }",
+              "                },",
+              "                function (err, res) {",
+              "                    console.log(\"Failed to collect a new Token for your Request \" + err);",
+              "                    console.log(\"NeuerToken:\" + res.json().authToken);",
+              "                    pm.globals.set(\"vermittlerToken\", res.json().authToken);",
+              "                }",
+              "            );",
+              "        }",
+              "    }",
+              ");"
+            ],
+            "id": "c4d5c225-3b89-492a-ae42-3f2c69c6a241"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ],
+            "id": "e7cfb8a6-a4ad-4036-824c-42794655663e"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NfsVermittlerTests",
+      "item": [
+        {
+          "name": "NfsVollbank",
+          "item": [
+            {
+              "name": "CreateBeratung",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let beratungId = pm.response.json().data.id;\r",
+                      "pm.collectionVariables.set(\"beratungId\", beratungId);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "8348f851-8a41-4928-9b93-5bb60a682919"
+                  }
+                }
+              ],
+              "_postman_id": "0a95d340-d77f-466d-8d28-b0058cc4e103",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung"
+              },
+              "response": []
+            },
+            {
+              "name": "Gespraechsangaben",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "978325c9-a3c6-4187-935b-e46d94447feb"
+                  }
+                }
+              ],
+              "_postman_id": "acfd9ed9-93a4-4938-b7a6-c76f57577395",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"form\": \"PERSOENLICH\",\r\n    \"kundeId\": {{NfsKundeId}},\r\n    \"initiatorId\": \"{{NfsKundeId}}\",\r\n\t\"initiatorTyp\": \"KUNDE\",\r\n    \"schritt\": \"SELBSTAUSKUNFT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Selbstauskunft",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "4fb5f0cd-5c52-49d0-bd29-b222da85f49c"
+                  }
+                }
+              ],
+              "_postman_id": "f26179e8-f88f-4705-b6a8-c93169e96f1a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"selbstauskunftTrigger\": [\r\n        \"{{NfsKundeId}}\"\r\n    ],\r\n    \"schritt\": \"DEPOTAUSWAHL\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckIfVollbank",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Depotbank is a Vollbank\", function () {\r",
+                      "    pm.expect(pm.response.json().typ).to.eql('Vollbank');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "84060a61-0cdc-41c8-8862-58620edcd31b"
+                  }
+                }
+              ],
+              "_postman_id": "c1c7924d-2559-43f4-9504-fb57cfdf2e62",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{host}}services/depotbank/api/legacy/depotbank/{{vollbankId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "GetKonditionsmodellId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.collectionVariables.set('VbKonditionsmodellId', pm.response.json().resultList[0].id);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "2366a3d4-b748-48cd-aa7f-9687824fc106"
+                  }
+                }
+              ],
+              "_postman_id": "8e98313f-bb50-46ba-94fa-6d386b6a6222",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/depotbank/api/v1/konditionsmodell?depotbankIds={{vollbankId}}",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "depotbank",
+                    "api",
+                    "v1",
+                    "konditionsmodell"
+                  ],
+                  "query": [
+                    {
+                      "key": "depotbankIds",
+                      "value": "{{vollbankId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Depotauswahl",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "b6e11c86-3e0b-483b-b1b7-37cbb1d41e36"
+                  }
+                }
+              ],
+              "_postman_id": "2c06d350-fffb-415a-896a-366118f4a214",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"neudepotInput\": {\r\n        \"depotbankId\": {{vollbankId}},\r\n        \"bestandEur\": 0,\r\n        \"konditionsmodellId\": {{VbKonditionsmodellId}}\r\n    },\r\n    \"depotInput\": {\r\n        \"depotTyp\": \"NEU\"\r\n    },\r\n    \"schritt\": \"ANLAGEPLAN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Anlageplan",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "5a545966-e7cd-471a-965a-cd66198f1c8c"
+                  }
+                }
+              ],
+              "_postman_id": "3ca921b4-b64f-49c1-892a-c5b9503d4e04",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"anlageplanInput\": {\r\n        \"horizont\": 10,\r\n        \"anlageziel\": \"ALTERSVORSORGE\",\r\n        \"nachhaltigkeit\": \"NICHTRELEVANT\"\r\n    },\r\n    \"allokationId\": 6,\r\n    \"schritt\": \"PORTFOLIOMANAGER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckVermittlerTyp",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Vermittler is of Type KWG32\", function () {\r",
+                      "    pm.expect(pm.response.json().data.attributes.vermittler.vermittlerTyp).to.eql('KWG32');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "c5271820-ccb9-4cc9-98dc-4e14ea8cc47d"
+                  }
+                }
+              ],
+              "_postman_id": "986b9f1c-81d2-4bcd-ba83-0f76e6c12c6a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?full=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "full",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CheckOrderInformationen",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let orderInformationen = pm.response.json().data.attributes.portfolio.orderInformationen;\r",
+                      "let erlaubteTransaktionen = orderInformationen.erlaubteTransaktionen;\r",
+                      "\r",
+                      "let erwarteteGattungsgruppen = ['FONDS', 'AKTIEN', 'ZERTIFIKATE', 'ANLEIHEN'];\r",
+                      "let gefundeneGattungsgruppen = [];\r",
+                      "\r",
+                      "for (i = 0; i < erlaubteTransaktionen.length; i++) {\r",
+                      "    gefundeneGattungsgruppen.push(erlaubteTransaktionen[i].gattungsGruppe);\r",
+                      "}\r",
+                      "\r",
+                      "pm.test(\"OrderForm Type is BS\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFOrderForm).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Sparplan OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFSparplanOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Allowed Gattungsarten are as expected\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen.sort()).to.eql(erwarteteGattungsgruppen.sort());\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart FONDS is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('FONDS');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart AKTIEN is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('AKTIEN');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ZERTIFIKATE is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('ZERTIFIKATE');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ANLEIHEN is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('ANLEIHEN');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "cc30f3c5-690d-4939-b63d-9b73855ba3e0"
+                  }
+                }
+              ],
+              "_postman_id": "136033a2-b4ca-412f-b55d-8f0c6fd53caf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?portfolio=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portfolio",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "1a5278cb-ed13-4613-873d-3f8089cbf1e4",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "NfsFondsbank",
+          "item": [
+            {
+              "name": "CreateBeratung",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let beratungId = pm.response.json().data.id;\r",
+                      "pm.collectionVariables.set(\"beratungId\", beratungId);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "a6ea8beb-0b5c-4738-a31b-030bbc738cd3"
+                  }
+                }
+              ],
+              "_postman_id": "75f07f13-ec17-4c78-9c6f-b8f19d3355ee",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung"
+              },
+              "response": []
+            },
+            {
+              "name": "Gespraechsangaben",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "25c5ba2a-2c6e-4f43-8a40-d9250518ff6e"
+                  }
+                }
+              ],
+              "_postman_id": "9e4444cc-93fd-4a59-b074-9acb79bc87a4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"form\": \"PERSOENLICH\",\r\n    \"kundeId\": {{NfsKundeId}},\r\n    \"initiatorId\": \"{{NfsKundeId}}\",\r\n\t\"initiatorTyp\": \"KUNDE\",\r\n    \"schritt\": \"SELBSTAUSKUNFT\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Selbstauskunft",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "3dee284c-9155-477e-bcff-babd5dcc109b"
+                  }
+                }
+              ],
+              "_postman_id": "b5714976-6bef-4c49-8ead-fc04490bf08a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"selbstauskunftTrigger\": [\r\n        \"{{NfsKundeId}}\"\r\n    ],\r\n    \"schritt\": \"DEPOTAUSWAHL\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckIfFondsbank",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Depotbank is a Fondsbank\", function () {\r",
+                      "    pm.expect(pm.response.json().typ).to.eql('Fondsbank');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "c82cd161-4085-41bb-b0c3-2159d730be54"
+                  }
+                }
+              ],
+              "_postman_id": "115b0a56-5ac0-44c8-8962-e65692e77f98",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{host}}services/depotbank/api/legacy/depotbank/{{fondsbankId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "GetKonditionsmodellId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.collectionVariables.set('FbKonditionsmodellId', pm.response.json().resultList[0].id);"
+                    ],
+                    "type": "text/javascript",
+                    "id": "a7806f85-3c08-46e2-b20d-0a2be6f12550"
+                  }
+                }
+              ],
+              "_postman_id": "1e5fe7e7-3e88-4eb6-9eb6-5c78012248c0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/depotbank/api/v1/konditionsmodell?depotbankIds={{fondsbankId}}",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "depotbank",
+                    "api",
+                    "v1",
+                    "konditionsmodell"
+                  ],
+                  "query": [
+                    {
+                      "key": "depotbankIds",
+                      "value": "{{fondsbankId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Depotauswahl",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "035a1ac0-4133-40a3-bff6-74b502e9e27a"
+                  }
+                }
+              ],
+              "_postman_id": "acf86f75-a55a-4e3d-ad8a-818e9f2f0e54",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"neudepotInput\": {\r\n        \"depotbankId\": {{fondsbankId}},\r\n        \"bestandEur\": 0,\r\n        \"konditionsmodellId\": {{FbKonditionsmodellId}}\r\n    },\r\n    \"depotInput\": {\r\n        \"depotTyp\": \"NEU\"\r\n    },\r\n    \"schritt\": \"ANLAGEPLAN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "Anlageplan",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "43d29f1d-7380-477d-9478-bcc77b1ca88d"
+                  }
+                }
+              ],
+              "_postman_id": "952b1fc5-4e35-491c-9913-eef43daa2d1b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"anlageplanInput\": {\r\n        \"horizont\": 10,\r\n        \"anlageziel\": \"ALTERSVORSORGE\",\r\n        \"nachhaltigkeit\": \"NICHTRELEVANT\"\r\n    },\r\n    \"allokationId\": 6,\r\n    \"schritt\": \"PORTFOLIOMANAGER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}"
+              },
+              "response": []
+            },
+            {
+              "name": "CheckVermittlerTyp",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Vermittler is of Type KWG32\", function () {\r",
+                      "    pm.expect(pm.response.json().data.attributes.vermittler.vermittlerTyp).to.eql('KWG32');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "846edfb2-620a-4ca2-8bc0-6c63ae64236b"
+                  }
+                }
+              ],
+              "_postman_id": "a41453ec-1ab2-4b33-8486-3f0ab840f1a4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?full=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "full",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CheckOrderInformationen",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "let orderInformationen = pm.response.json().data.attributes.portfolio.orderInformationen;\r",
+                      "let erlaubteTransaktionen = orderInformationen.erlaubteTransaktionen;\r",
+                      "\r",
+                      "let erwarteteGattungsgruppen = ['FONDS'];\r",
+                      "let gefundeneGattungsgruppen = [];\r",
+                      "\r",
+                      "for (i = 0; i < erlaubteTransaktionen.length; i++) {\r",
+                      "    gefundeneGattungsgruppen.push(erlaubteTransaktionen[i].gattungsGruppe);\r",
+                      "}\r",
+                      "\r",
+                      "pm.test(\"OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Sparplan OrderForm Type is EF\", function () {\r",
+                      "    pm.expect(orderInformationen.useEFSparplanOrderForm).to.eql(true);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Allowed Gattungsarten are as expected\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen.sort()).to.eql(erwarteteGattungsgruppen.sort());\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart FONDS is allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.contain('FONDS');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart AKTIEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('AKTIEN');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ZERTIFIKATE is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ZERTIFIKATE');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Gattungsart ANLEIHEN is not allowed\", function () {\r",
+                      "    pm.expect(gefundeneGattungsgruppen).to.not.contain('ANLEIHEN');\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "id": "d0fc711f-623b-4c66-8d43-3685915d88ff"
+                  }
+                }
+              ],
+              "_postman_id": "ac99aa51-4a1a-4c1c-b3c5-6c6a5ce6e2b5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{host}}services/beratung/api/v1/beratung/{{beratungId}}?portfolio=true",
+                  "host": [
+                    "{{host}}services"
+                  ],
+                  "path": [
+                    "beratung",
+                    "api",
+                    "v1",
+                    "beratung",
+                    "{{beratungId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portfolio",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "221e88db-05ec-45e8-8834-13f74578cd44",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "cf5ca6d0-994f-4f27-81bc-a84148d429d5",
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "{{siliziumNfsOvToken}}"
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "//Test, ob Token gültig ist",
+              "pm.sendRequest({",
+              "    url: \"https://demo.finfire.de/services/login/api/v1?refresh=false&useDirectVnr=false\",",
+              "    method: \"GET\",",
+              "    header: {",
+              "        \"content-type\": \"application/json\",",
+              "        \"Authorization\": \"Bearer \" + pm.globals.get(\"siliziumNfsOvToken\")",
+              "    }",
+              "},",
+              "    function (err, res) {",
+              "        let authenticated = res.json().authenticated;",
+              "        console.log(res.json().token);",
+              "        console.log(\"authenticated:\" + authenticated);",
+              "",
+              "        // Erneutes Setzen des Tokens ",
+              "        pm.globals.set(\"siliziumNfsOvToken\", res.json().token);",
+              "",
+              "        if (authenticated === false) {",
+              "            //Anmeldung beim Login Service",
+              "            console.log(\"Hole neuen VermittlerToken vom LoginService\");",
+              "            pm.sendRequest(",
+              "                {",
+              "                    url: \"https://demo.fundsware.de/services/login/api/v1/doLogin\",",
+              "                    method: \"POST\",",
+              "                    header: {",
+              "                        \"content-type\": \"application/json\"",
+              "                    },",
+              "                    body: {",
+              "                        mode: \"raw\",",
+              "                        raw: JSON.stringify({",
+              "                            username: pm.globals.get(\"siliziumNfsOvUsername\"),",
+              "                            password: pm.globals.get(\"siliziumNfsOvPassword\")",
+              "                        })",
+              "                    }",
+              "                },",
+              "                function (err, res) {",
+              "                    console.log(\"Failed to collect a new Token for your Request \" + err);",
+              "                    console.log(\"NeuerToken:\" + res.json().authToken);",
+              "                    pm.globals.set(\"siliziumNfsOvToken\", res.json().authToken);",
+              "                }",
+              "            );",
+              "        }",
+              "    }",
+              ");"
+            ],
+            "id": "904dbff5-9a03-4391-a02b-9f3c549c7b13"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ],
+            "id": "5818c313-c2fa-4747-90a1-0f7c21372c8c"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "052cd05e-6134-4739-a9b6-972e5932458b"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "34d93791-d475-432d-a14d-7f0d9764ccdb"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "33a779e8-c9ee-4922-870d-50d93f74bea4",
+      "key": "NfVnr",
+      "value": "99967",
+      "type": "string"
+    },
+    {
+      "id": "15b7b163-c2bb-4fce-96e7-fd723a78efe6",
+      "key": "NfKundeId",
+      "value": "10000073498",
+      "type": "string"
+    },
+    {
+      "id": "cc5602e5-9b14-475a-a128-84fae4830760",
+      "key": "NfsVnr",
+      "value": "80489",
+      "type": "string"
+    },
+    {
+      "id": "a40bba01-6f2a-439c-9334-fd8c55954d0d",
+      "key": "NfsKundeId",
+      "value": "10000072936",
+      "type": "string"
+    },
+    {
+      "id": "6b0a24c1-05d4-4200-9e7f-3392362b018d",
+      "key": "fondsbankId",
+      "value": "101",
+      "type": "string"
+    },
+    {
+      "id": "89d63b4c-d4c3-4079-aed7-501fdf05ebc4",
+      "key": "vollbankId",
+      "value": "100",
+      "type": "string"
+    },
+    {
+      "id": "98f3520c-c6a3-46a5-8df4-084f6f546a28",
+      "key": "beratungId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "id": "c0fac5af-6ec5-41e2-b3a4-433261b8bdc4",
+      "key": "VbKonditionsmodellId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "id": "4dbdf008-6910-49b6-b4c5-f8c1ad7400aa",
+      "key": "FbKonditionsmodellId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
