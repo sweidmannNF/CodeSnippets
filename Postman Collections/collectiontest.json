@@ -562,16 +562,16 @@
                 {
                   "listen": "test",
                   "script": {
+                    "id": "66832eb2-ac5b-4e08-8171-017a9a03612e",
                     "exec": [
-                      "pm.test(\"Status code is 200\", function () {\r",
+                      "pm.test(\"Status code is 21213200\", function () {\r",
                       "    pm.response.to.have.status(200);\r",
                       "});\r",
                       "\r",
                       "let beratungId = pm.response.json().data.id;\r",
                       "pm.collectionVariables.set(\"beratungId\", beratungId);"
                     ],
-                    "type": "text/javascript",
-                    "id": "66832eb2-ac5b-4e08-8171-017a9a03612e"
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -1923,47 +1923,47 @@
   ],
   "variable": [
     {
-      "id": "4b471987-cb79-40bf-aa9f-0b28c37277e1",
+      "id": "109bfc66-db36-4baf-a9b1-3b653c12f8fb",
       "key": "NfVnr",
       "value": "99967"
     },
     {
-      "id": "af2947cf-fbbf-442a-a65a-5ebc33351e89",
+      "id": "3d515f97-8f6f-49f5-bbc3-0b5826e25501",
       "key": "NfKundeId",
       "value": "10000073498"
     },
     {
-      "id": "1d22418c-6217-470a-9f16-57df7a200e13",
+      "id": "b8eca6e6-3c7b-4d44-a5ed-bd322335ff89",
       "key": "NfsVnr",
       "value": "80489"
     },
     {
-      "id": "49673439-d2a7-4939-af50-def7f219ba70",
+      "id": "b0290cad-b7a4-4ba2-b9e0-b86f736d0f3b",
       "key": "NfsKundeId",
       "value": "10000072936"
     },
     {
-      "id": "5c0adfe8-0866-44a5-b6c5-0b103282b33c",
+      "id": "bb492c52-6769-40ae-ac8b-28b4d993df4e",
       "key": "fondsbankId",
       "value": "101"
     },
     {
-      "id": "ec464ab0-da72-44f2-90ec-ebf4bda78a8f",
+      "id": "e8eb1c14-2118-4390-b27f-d6de3afd029f",
       "key": "vollbankId",
       "value": "100"
     },
     {
-      "id": "489ca2a1-5d0d-4fef-bf3d-ed8fa6b98b5b",
+      "id": "1f060e0c-fdaa-4cc2-8a28-000d2b42ffc9",
       "key": "beratungId",
       "value": ""
     },
     {
-      "id": "0f040597-d9e6-4687-a263-d49c2aec92ef",
+      "id": "76a96609-8829-4669-9f7b-92244a6e9294",
       "key": "VbKonditionsmodellId",
       "value": ""
     },
     {
-      "id": "55682d6d-46d7-4df7-9722-99082d3740a8",
+      "id": "fcaeb5bf-e8c1-4e9c-ba29-e6c2d26b12dc",
       "key": "FbKonditionsmodellId",
       "value": ""
     }
