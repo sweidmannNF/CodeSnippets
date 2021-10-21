@@ -1354,7 +1354,7 @@
           "id": "4d26beb3-cd07-47a5-ae70-db57e3ce4ea6"
         },
         {
-          "name": "NfFondsbank",
+          "name": "NfFondsbankNew",
           "item": [
             {
               "name": "DeleteActiveBeratungen (Cleanup)",
@@ -1923,47 +1923,47 @@
   ],
   "variable": [
     {
-      "id": "049b6442-b753-4e58-ae78-ca1d99991358",
+      "id": "b4fc7c68-1b9e-4124-b5a9-d64c73e68851",
       "key": "NfVnr",
       "value": "99967"
     },
     {
-      "id": "838976ad-b996-4736-a54a-74eb093e1f59",
+      "id": "14d89144-53f3-499d-ba1a-82b85b9a4302",
       "key": "NfKundeId",
       "value": "10000073498"
     },
     {
-      "id": "944b9a0e-0324-4f71-9d78-c4a1d92cfbee",
+      "id": "3f9462d8-8797-4a2a-957d-69970bb7f031",
       "key": "NfsVnr",
       "value": "80489"
     },
     {
-      "id": "72d5ae9f-420c-427b-81c2-174717df1e53",
+      "id": "083ad9dc-d439-4a3c-bacf-fd05251d6c6d",
       "key": "NfsKundeId",
       "value": "10000072936"
     },
     {
-      "id": "fb27ebc0-3537-425e-b42f-51928cdb7b68",
+      "id": "7a544f01-ced3-462a-a655-99e8e928a165",
       "key": "fondsbankId",
       "value": "101"
     },
     {
-      "id": "4aa873f8-b22a-4c18-bd95-f497d956620c",
+      "id": "a247f6a8-f579-4946-b9aa-0e7607bd72b0",
       "key": "vollbankId",
       "value": "100"
     },
     {
-      "id": "46bb8d0e-fb0d-4a94-ae3e-7e65340ed55f",
+      "id": "1916b3b5-f051-4a77-a2d9-e1cd810c1ebd",
       "key": "beratungId",
       "value": ""
     },
     {
-      "id": "62371085-9349-4d16-9a15-e2546275167a",
+      "id": "fa22437a-f4b9-4c46-b07b-fe08c2440263",
       "key": "VbKonditionsmodellId",
       "value": ""
     },
     {
-      "id": "24cda05b-7d78-4a58-8fb4-143ef888cf68",
+      "id": "ed3f7001-7b67-4906-938b-0d6834cb0d33",
       "key": "FbKonditionsmodellId",
       "value": ""
     }
