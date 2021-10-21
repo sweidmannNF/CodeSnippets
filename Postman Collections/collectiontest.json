@@ -93,7 +93,7 @@
                     "id": "52fb1f5d-953a-4fd2-bf3d-8c5399aca29e",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "    pm.response.to.have.status(2000);\r",
                       "});\r",
                       "\r",
                       "pm.collectionVariables.set(\"beratungId\", beratungId);\r",
@@ -1923,47 +1923,47 @@
   ],
   "variable": [
     {
-      "id": "a5e69127-7660-4c1f-a34b-e8b5afcede8d",
+      "id": "4b471987-cb79-40bf-aa9f-0b28c37277e1",
       "key": "NfVnr",
       "value": "99967"
     },
     {
-      "id": "32a4bd57-2fdd-451c-a97e-07051ff115a4",
+      "id": "af2947cf-fbbf-442a-a65a-5ebc33351e89",
       "key": "NfKundeId",
       "value": "10000073498"
     },
     {
-      "id": "3faf61e4-1f8e-413e-b7ae-8625186e74dd",
+      "id": "1d22418c-6217-470a-9f16-57df7a200e13",
       "key": "NfsVnr",
       "value": "80489"
     },
     {
-      "id": "3414b650-a0cf-4469-9645-3e378c59a713",
+      "id": "49673439-d2a7-4939-af50-def7f219ba70",
       "key": "NfsKundeId",
       "value": "10000072936"
     },
     {
-      "id": "877577ac-9e04-41e6-b15f-c584c654c651",
+      "id": "5c0adfe8-0866-44a5-b6c5-0b103282b33c",
       "key": "fondsbankId",
       "value": "101"
     },
     {
-      "id": "3b7a7b0f-3202-4271-92a2-dfaeb3bdebad",
+      "id": "ec464ab0-da72-44f2-90ec-ebf4bda78a8f",
       "key": "vollbankId",
       "value": "100"
     },
     {
-      "id": "fcf4a3ed-9bd7-411b-9540-c1feb93d3d76",
+      "id": "489ca2a1-5d0d-4fef-bf3d-ed8fa6b98b5b",
       "key": "beratungId",
       "value": ""
     },
     {
-      "id": "668c4a00-7f0d-4fac-9748-6ccda5246aad",
+      "id": "0f040597-d9e6-4687-a263-d49c2aec92ef",
       "key": "VbKonditionsmodellId",
       "value": ""
     },
     {
-      "id": "5860b78e-75e8-4bf9-8993-4a0d67e6f4fa",
+      "id": "55682d6d-46d7-4df7-9722-99082d3740a8",
       "key": "FbKonditionsmodellId",
       "value": ""
     }
